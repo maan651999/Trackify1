@@ -1,0 +1,36 @@
+﻿@model Trackify.Domain.FitnessEntity.Meal
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Add Meal";
+}
+<h3>Add Meal (@Model.MealTime.ToString("dd MMM yyyy"))</h3>
+<form method="post">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Meal Type</label>
+            <input class="form-control" asp-for="MealType" />
+        </div>
+        <div class="col-md-5">
+            <label class="form-label">Food Item</label>
+            <input class="form-control" asp-for="FoodItem" />
+        </div>
+        <div class="col-md-1">
+            <label class="form-label">Protein</label>
+            <input class="form-control" asp-for="Protein" />
+        </div>
+        <div class="col-md-1">
+            <label class="form-label">Carbs</label>
+            <input class="form-control" asp-for="Carbs" />
+        </div>
+        <div class="col-md-1">
+            <label class="form-label">Fats</label>
+            <input class="form-control" asp-for="Fats" />
+        </div>
+        <div class="col-md-1">
+            <label class="form-label">Kcal</label>
+            <input class="form-control" asp-for="Calories" />
+        </div>
+    </div>
+    <input type="hidden" asp-for="MealTime" />
+    <button class="btn btn-primary mt-3">Save</button>
+</form>

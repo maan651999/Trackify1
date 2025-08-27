@@ -1,0 +1,70 @@
+﻿@model Trackify.Application.DTOs.ExpenseDto
+
+@{
+    ViewData["Title"] = "Add Expense";
+}
+<style>
+    .btn-custom {
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 5px;
+        line-height: 1.2;
+    }
+
+        .btn-custom i {
+            font-size: 16px;
+        }
+
+        /* Hover effect */
+        .btn-custom:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+    .mt-5 {
+        margin-top: 0rem !important;
+        margin-left: 9rem !important;
+    }
+</style>
+<div class="container mt-5">
+    <div class="card shadow p-4 rounded-4">
+        <h1 class="budget-title">
+            💸 Add Expense
+        </h1>
+        <form asp-action="Add" method="post">
+            <div class="mb-3">
+                <label asp-for="Amount" class="form-label">Amount (₹)</label>
+                <input asp-for="Amount" class="form-control" type="number" step="1" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Category</label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryList">
+                    <option value="">--Select Category--</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Date" class="form-label">Date</label>
+                <input asp-for="Date" class="form-control" type="date" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label">Notes</label>
+                <textarea asp-for="Notes" class="form-control" rows="2" placeholder="Enter Notes"></textarea>
+            </div>
+
+            <input type="hidden" asp-for="UserId" value="1" />
+
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button type="submit" class="btn btn-success btn-custom">➕ Add Expense</button>
+            </div>
+        </form>
+    </div>
+</div>

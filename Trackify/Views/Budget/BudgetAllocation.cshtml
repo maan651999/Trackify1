@@ -1,0 +1,205 @@
+﻿@model List<Trackify.Application.DTOs.RecommendedBudgetDto>
+
+<h1 class="budget-title">
+    📊 Recommended Budget Allocation
+</h1>
+
+<table class="table table-bordered mt-0 align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Category</th>
+            <th>Min (₹)</th>
+            <th>Avg (₹)</th>
+            <th>Max (₹)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryName</td>
+                <td>@item.IdealMinAmount</td>
+                <td>@item.IdealAvgAmount</td>
+                <td>@item.IdealMaxAmount</td>
+                <td>
+                    @if (item.IsAdded)
+                    {
+                        <span class="badge-premium">✔ Added</span>
+                    }
+                    else
+                    {
+                        <a class="btn-premium"
+                           asp-controller="Budget"
+                           asp-action="Create"
+                           asp-route-id="@item.RecommendationId"
+                           asp-route-avgAmt="@item.IdealAvgAmount">
+                            ✨ + Add
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="display: flex; justify-content: flex-end; gap: 5px;">
+    <a class="btn-update" href="/Budget/Index">
+        <i class="bi bi-pencil-square"></i> Update Category
+    </a>
+</div>
+
+<style>
+    .btn-custom {
+        padding: 7px 14px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 5px;
+        line-height: 1.2;
+    }
+
+        .btn-custom i {
+            font-size: 16px;
+        }
+
+        /* Hover effect */
+        .btn-custom:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+
+    .p-4 {
+        padding: 1rem !important;
+    }
+
+    .btn-premium {
+        background: linear-gradient(135deg, #005298, #28787A, #3B8A6D, #53A05C);
+        color: #fff !important;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 50px; /* pill shape */
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 82, 152, 0.35);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease infinite;
+    }
+
+        .btn-premium:hover {
+            background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C, #005298);
+            box-shadow: 0 6px 16px rgba(40, 120, 122, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-premium:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
+        }
+
+    /* Gradient Animation */
+    @@keyframes gradientShift {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
+
+    .badge-premium {
+        background: linear-gradient(135deg, #28a745, #1e7e34); /* green gradient */
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 6px 14px;
+        border-radius: 50px; /* pill shape */
+        box-shadow: 0 3px 8px rgba(40, 167, 69, 0.4);
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .badge-premium::before {
+            content: "✔ ";
+            font-weight: bold;
+        }
+
+        .badge-premium:hover {
+            background: linear-gradient(135deg, #1e7e34, #155d27);
+            box-shadow: 0 4px 10px rgba(24, 100, 40, 0.5);
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+
+    .btn-update {
+        background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C);
+        color: #fff !important;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 50px; /* premium pill look */
+        border: none;
+        box-shadow: 0 4px 12px rgba(59, 138, 109, 0.35);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        margin-right: 37px;
+        background-size: 300% 300%;
+        animation: gradientShiftUpdate 10s ease infinite;
+    }
+
+        .btn-update:hover {
+            background: linear-gradient(135deg, #3B8A6D, #53A05C, #28787A);
+            box-shadow: 0 6px 16px rgba(40, 120, 122, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-update:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
+        }
+
+    /* Smooth gradient movement */
+    @@keyframes gradientShiftUpdate {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
+
+    .table {
+        margin-bottom: 0rem;
+    }
+
+</style>
+
+
+

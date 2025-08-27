@@ -1,0 +1,24 @@
+﻿@model Trackify.Application.DTOs.BudgetCategoryDto
+
+<style>
+    .p-4 {
+        padding: 1rem !important;
+    }
+</style>
+
+<h1 class="budget-title">
+    📊 Edit Budget Category
+</h1>
+<form method="post">
+    <input type="hidden" asp-for="CategoryId" />
+    <div class="mb-3">
+        <label>Category Name</label>
+        <input asp-for="CategoryName" class="form-control" readonly/>
+    </div>
+    <div class="mb-3">
+        <label>Budget Amount</label>
+        <input asp-for="BudgetAmount" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/BudgetCategory" class="btn btn-secondary">Cancel</a>
+</form>

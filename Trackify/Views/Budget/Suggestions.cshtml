@@ -1,0 +1,57 @@
+﻿@model List<Trackify.Application.DTOs.BudgetSuggestionDto>
+
+    <style>
+    .btn-custom {
+        padding: 8px 42px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 5px;
+        line-height: 1.2;
+    }
+
+        .btn-custom i {
+            font-size: 16px;
+        }
+
+        /* Hover effect */
+        .btn-custom:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+    </style>
+
+<h2>📊 Smart Budget Suggestions (Based on Last 3 Months)</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Category</th>
+            <th>Current Budget</th>
+            <th>3-Month Avg Spent</th>
+            <th>Suggested Budget</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var change = item.SuggestedBudget - item.CurrentBudget;
+            var color = change > 0 ? "text-danger" : "text-success";
+
+            <tr>
+                <td>@item.Category</td>
+                <td>₹@item.CurrentBudget</td>
+                <td>₹@item.AverageSpent</td>
+                <td class="@color">₹@item.SuggestedBudget</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px;">
+<a class="btn btn-info btn-custom" href="/Budget/ExportSuggestionsPdf">
+    <i class="bi bi-pencil-square"></i> Export as PDF
+</a>
+</div>

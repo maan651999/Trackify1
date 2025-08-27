@@ -1,0 +1,69 @@
+﻿@model Trackify.Application.DTOs.BudgetCategoryDto
+
+<h1 class="budget-title">
+    📊 Add Budget Category
+</h1>
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Category Name</label>
+        <select asp-for="CategoryId" class="form-select" asp-items="@(ViewBag.CategoryList as List<SelectListItem>)"
+                style="pointer-events: none; background-color: #e9ecef;">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Budget Amount</label>
+        <input asp-for="BudgetAmount" class="form-control" value="@ViewBag.DefaultBudgetAmount" />
+        <span asp-validation-for="BudgetAmount" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a class="btn btn-secondary btn-custom" asp-action="BudgetAllocation" style="background:#6c757d;">🔙 Back</a>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (TempData["ErrorMessage"] != null)
+        {
+                <text>
+                    Swal.fire({
+                        icon: 'error',
+                        title: '🚫 Invalid Budget Allocation!',
+                        html: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["ErrorMessage"])),
+                        timer: 4000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        background: '#fff',
+                        customClass: {
+                            title: 'swal-title-custom',
+                            htmlContainer: 'swal-text-custom'
+                        }
+                    });
+                </text>
+        }
+    </script>
+}
+
+<style>
+    .p-4 {
+        padding: 2rem !important;
+    }
+    /* Title ko premium look */
+    .swal-title-custom {
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        color: #d9534f !important;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Message ko readable aur modern */
+    .swal-text-custom {
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        color: #333 !important;
+        line-height: 1.5;
+    }
+</style>
+

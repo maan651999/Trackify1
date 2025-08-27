@@ -1,0 +1,352 @@
+﻿body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8f9fc;
+    margin: 0;
+    padding: 0;
+}
+.budget-title {
+    font-size: 2rem;
+    font-weight: 650;
+    color: #2c3e50;
+    text-align: center;
+    padding: 5px 10px;
+    background: #B8B7C4;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: inline-block;
+}
+
+
+.dashboard-container {
+    max-width: 1800px;
+    width: 73%;
+    height: 100vh;
+    margin: 0px 0px 0px 220px;
+    background-color: #f5f7fa;
+    transition: margin-left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden !important;
+    padding: initial;
+}
+.p-4 {
+    padding: 1rem !important;
+}
+
+/* Pure page me scroll band */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 0px;
+    color: #333;
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    color: rgb(41, 39, 39);
+    background-color: #FFFFFF;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.3rem;
+}
+
+.blue {
+    background: #2196f3;
+}
+
+.orange {
+    background: #ff9800;
+}
+
+.red {
+    background: #e53935;
+}
+
+.green {
+    background: #4caf50;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+.chart-card, .latest-requests {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Table */
+    .latest-requests table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .latest-requests th, .latest-requests td {
+        padding: 0.8rem;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .latest-requests tr:hover {
+        background: #f4f4f4;
+    }
+
+/* Notifications */
+.notifications {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .notifications ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .notifications li {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #eee;
+    }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.main-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 240px;
+    background-color: #212529;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    height: 60px; /* fixed height to control space */
+    border-bottom: 1px solid #444;
+    background-color: #1e1e1e; /* optional */
+    color: #fff;
+    box-sizing: border-box;
+}
+
+    .sidebar-header h2 {
+        margin: 0; /* 🔥 remove default margin */
+        font-size: 1.5rem;
+        line-height: 1; /* 🔥 prevent extra spacing */
+    }
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    padding: 0; /* 🔥 remove internal padding */
+    line-height: 1;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top:13px;
+}
+
+    .sidebar-nav li {
+        padding: 0.8rem 1.5rem;
+    }
+
+        .sidebar-nav li a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+            .sidebar-nav li a:hover {
+                background-color: #343a40;
+                border-radius: 4px;
+            }
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .dashboard-container {
+        margin-left: 0;
+    }
+}
+
+.main-wrapper {
+    display: flex;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #212529;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    min-height: 100vh;
+    padding-top: 1rem;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    padding: 0px;
+}
+
+    .sidebar.expanded {
+        width: 230px;
+    }
+
+    .sidebar.collapsed {
+        width: 70px;
+    }
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    margin:-8px;
+}
+
+#sidebar-title {
+    font-size: 1.3rem;
+    transition: opacity 0.3s;
+}
+
+.sidebar.collapsed #sidebar-title,
+.sidebar.collapsed .link-text {
+    display: none;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+
+    .sidebar-nav li {
+        padding: 0.75rem 1rem;
+    }
+
+    .sidebar-nav a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: background 0.2s ease;
+    }
+
+        .sidebar-nav a:hover {
+            background-color: #343a40;
+            border-radius: 4px;
+        }
+
+.sidebar.collapsed + .dashboard-container {
+    margin-left: 70px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar.expanded {
+        width: 100%;
+        position: relative;
+    }
+
+    .sidebar.collapsed {
+        width: 0;
+        display: none;
+    }
+
+    .dashboard-container {
+        margin-left: 0 !important;
+    }
+}
+/* ✅ Success Button */
+.btn-success {
+    background-color: #74BF44;
+    color: #FFFFFF;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+    .btn-success:hover {
+        background-color: #5CA534; /* halka dark hover shade */
+        color: #FFFFFF;
+    }
+
+/* ✅ Outline Info Button */
+.btn-outline-info {
+    color: #74BF44;
+    background-color: transparent;
+    border: 2px solid #74BF44;
+    transition: all 0.3s ease-in-out;
+}
+
+    .btn-outline-info:hover {
+        color: #FFFFFF;
+        background-color: #74BF44;
+        border-color: #74BF44;
+    }
+.icon {
+    color: #74BF44; /* Aapka theme green */
+    font-size: 22px;
+    margin-right: 6px;
+}
+
+
+
