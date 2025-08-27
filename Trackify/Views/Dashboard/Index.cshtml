@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+    var user = ViewBag.User as Trackify.Domain.Entities.User;
+    var date = (DateTime)ViewBag.Date;
+    var workout = ViewBag.Workout as Trackify.Domain.FitnessEntity.Workout;
+}
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">Hello, @user?.FullName</h5>
+                <p class="mb-1">Goal: @user?.Goal</p>
+                @* <p class="mb-0">Targets: Protein @user?.ProteinTargetPerDay g • Calories @user?.CalorieTargetPerDay kcal</p> *@
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">Today's Protein</h5>
+                <p class="display-6">@ViewBag.Protein g</p>
+                <a href="/Diet?date=@date.ToString("yyyy-MM-dd")" class="btn btn-primary">Log Meals</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">Today's Calories</h5>
+                <p class="display-6">@ViewBag.Calories kcal</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mt-1">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">Today's Workout (@DateTime.UtcNow.DayOfWeek)</h5>
+                @if (workout == null)
+                {
+                    <p>No workout scheduled today.</p>
+                }
+                else
+                {
+                  @*   <p class="text-muted">Focus: @workout.Focus</p> *@
+                    <ul class="list-group">
+                        @foreach (var ex in workout.Exercises.OrderBy(e => e.Id))
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@ex.Name <small class="text-muted">(@ex.Sets x @ex.Reps)</small></span>
+                                <form asp-controller="Workout" asp-action="Toggle" method="post" class="m-0">
+                                    <input type="hidden" name="exerciseId" value="@ex.Id" />
+                                    <button class="btn btn-sm @(ex.Completed ? "btn-success" : "btn-outline-secondary")">@(ex.Completed ? "Done" : "Mark Done")</button>
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">Quick Add Meal</h5>
+                <form asp-controller="Diet" asp-action="Add" method="post">
+                    <input type="hidden" name="Date" value="@date.ToString("yyyy-MM-dd")" />
+                    <div class="row g-2">
+                        <div class="col-3"><input class="form-control" name="MealType" value="Snack" /></div>
+                        <div class="col-5"><input class="form-control" name="FoodItem" placeholder="Food (e.g., Soya 100g)" /></div>
+                        <div class="col-1"><input class="form-control" name="Protein" placeholder="P" /></div>
+                        <div class="col-1"><input class="form-control" name="Carbs" placeholder="C" /></div>
+                        <div class="col-1"><input class="form-control" name="Fats" placeholder="F" /></div>
+                        <div class="col-1"><input class="form-control" name="Calories" placeholder="K" /></div>
+                    </div>
+                    <button class="btn btn-primary mt-2">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

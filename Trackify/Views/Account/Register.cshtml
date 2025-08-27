@@ -1,0 +1,138 @@
+﻿@model Trackify.Domain.Entities.User
+@{
+    ViewBag.Title = "Advanced Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // agar aapka layout hai to use kare
+}
+<div class="background"></div>
+<div class="form-wrapper">
+    <div class="form-container">
+        <h2>✨ Rapid Register</h2>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.FullName)
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name", required = "required" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email Address", type = "email" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Phone)
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone", required = "required" })
+            </div>
+
+           @*  <div class="form-group">
+                @Html.LabelFor(m => m.PasswordHash, "Password")
+                @Html.PasswordFor(m => m.PasswordHash, new { @class = "form-control", placeholder = "Password", required = "required" })
+                @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "text-danger" })
+                <small id="passwordHelp" class="form-text text-muted"></small>
+            </div> *@
+            <div class="form-group position-relative">
+                @Html.LabelFor(m => m.PasswordHash, "Password")
+                @Html.PasswordFor(m => m.PasswordHash, new { @class = "form-control password-input", id = "password", placeholder = "Password", required = "required" })
+                <!-- Password toggle (inside input box) -->
+                <span class="position-absolute end-0 top-50 translate-middle-y me-3 toggle-password"
+                      onclick="togglePassword()" style="cursor:pointer;">
+                    <i class="bi bi-eye text-dark" id="toggleIcon"></i>
+                </span>
+
+                <!-- Client-side password strength message -->
+                <div id="passwordHelp" class="form-text mt-1"></div>
+
+                <!-- Server-side validation message -->
+                <div class="text-danger mt-1">
+                    @Html.ValidationMessageFor(m => m.PasswordHash)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Gender, "Select Gender")
+                @Html.DropDownListFor(m => m.Gender,
+                new SelectList(new[] { "Male", "Female", "Others" }),
+                        "Choose Gender...",
+                        new { @class = "form-control", required = "required" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Goal)
+            @Html.TextAreaFor(m => m.Goal, new { @class = "form-control", placeholder = "Goal", Rows = 4, required = "required" })
+        </div>
+        <div class="form-row">
+            <div class="form-group half">
+                @Html.LabelFor(m => m.Age)
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", placeholder = "Age", required = "required" })
+            </div>
+            <div class="form-group half">
+                @Html.LabelFor(m => m.Weight)
+                @Html.TextBoxFor(m => m.Weight, new { @class = "form-control", placeholder = "Weight", required = "required" })
+            </div>
+            <div class="form-group half">
+                @Html.LabelFor(m => m.Height)
+                @Html.TextBoxFor(m => m.Height, new { @class = "form-control", placeholder = "Height", required = "required" })
+            </div>
+        </div>
+
+        @* <div class="form-group checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IsVolunteer) I want to volunteer
+                    </label>
+                </div> *@
+
+
+
+        <button type="submit">Register</button>
+                }
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="~/css/register.css" /> <!-- CSS link -->
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    }
+</script>
+<script>
+                 document.addEventListener("DOMContentLoaded", function () {
+        const pwdInputs = document.querySelectorAll(".password-input");
+
+        // ✅ Regex: at least 1 lowercase, 1 uppercase, 1 digit, 1 special char, min 8 chars
+        const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@@#$%^&*?]).{8,}$/;
+
+        pwdInputs.forEach(input => {
+            input.addEventListener("input", function () {
+                const msg = document.getElementById(input.id + "Help");
+
+                if (!msg) return;
+
+                const pwd = input.value;
+                console.log("Current Value:", pwd); // debug
+                console.log("Regex Test:", strongRegex.test(pwd)); // debug
+
+                if (pwd.length === 0) {
+                    msg.textContent = "";
+                }
+                else if (strongRegex.test(pwd)) {
+                    msg.textContent = "✅ Strong password";
+                    msg.style.color = "green";
+                } else {
+                    msg.textContent = "❌ Must be strong password";
+                    msg.style.color = "red";
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,75 @@
+﻿@model Trackify.Application.DTOs.UserPhotoUploadDto
+
+@{
+    ViewData["Title"] = "Upload Profile Photo";
+}
+
+<h2>Upload Profile Photo</h2>
+
+<form asp-action="UploadPhoto" asp-controller="Dashboard" enctype="multipart/form-data" method="post" onsubmit="return validateForm()">
+    <div class="form-group">
+        <label>Select Profile Picture</label>
+        <input type="file" name="PhotoFile" id="PhotoFile" accept="image/*" class="form-control" required onchange="previewImage(this)" />
+    </div>
+
+    <div class="mt-3">
+        <img id="preview" src="#" alt="Preview" style="display: none; width: 120px; height: 120px; border-radius: 50%;" />
+    </div>
+
+    <div id="error" class="text-danger mt-2"></div>
+
+    <button type="submit" class="btn btn-primary mt-3">Upload</button>
+</form>
+
+@section Scripts {
+    <script>
+        function previewImage(input) {
+            const file = input.files[0];
+            const preview = document.getElementById("preview");
+            const error = document.getElementById("error");
+            error.innerText = "";
+
+            if (!file) {
+                preview.style.display = "none";
+                return;
+            }
+
+            const validTypes = ["image/jpeg", "image/png", "image/webp"];
+            const maxSize = 2 * 1024 * 1024; // 2MB
+
+            if (!validTypes.includes(file.type)) {
+                error.innerText = "Only JPG, PNG, and WEBP files are allowed.";
+                input.value = "";
+                preview.style.display = "none";
+                return;
+            }
+
+            if (file.size > maxSize) {
+                error.innerText = "File size should be less than 2MB.";
+                input.value = "";
+                preview.style.display = "none";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function validateForm() {
+            const file = document.getElementById("PhotoFile").files[0];
+            const error = document.getElementById("error");
+            error.innerText = "";
+
+            if (!file) {
+                error.innerText = "Please select a file.";
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}

@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Trackify</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Trackify.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    @{
+        var userName = Context.Session.GetString("UserName");
+        var jwtExpiry = Context.Session.GetString("jwtExpiry");
+        var UserBudget = Context.Session.GetInt32("UserBudget");
+        string budgetClass = UserBudget.HasValue && UserBudget > 0
+        ? "btn btn-sm btn-success"   // ✅ Budget set
+        : "btn btn-sm btn-warning";  // ⚠️ Budget not set
+        var userPhoto = Context.Session.GetString("UserPhoto") ?? "/images/default.png";
+
+        if (string.IsNullOrEmpty(userPhoto))
+        {
+            userPhoto = "/images/default.png";
+        }
+    }
+
+
+    <!-- ✅ Top Bar -->
+    @if (jwtExpiry != null)
+    {
+        <header class="topbar bg-dark text-white d-flex justify-content-between align-items-center px-3 py-2" style="z-index: 999; position: sticky; top: 0;">
+            <div class="d-flex align-items-center gap-2">
+                <!-- Left Side (Optional) -->
+            </div>
+
+            <div id="session-timer" style="color:red; font-weight:bold; margin-right:20px;">
+                Session Expires in: <span id="countdown"></span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                @if (!string.IsNullOrEmpty(userName))
+                {
+                    <img src="@userPhoto" alt="Profile Picture" class="profile-img me-2" />
+
+                    @* <span>👋 Welcome, <strong>@userName</strong></span> *@
+                    <span><strong>@userName</strong></span>
+                    <a href="/Dashboard/UploadPhoto" class="btn btn-sm btn-outline-info">Change Photo</a>
+                    @if (UserBudget != null)
+                    {
+                        <span>💰 Budget: <strong>₹ @UserBudget</strong></span>
+                    }
+                    @if (DateTime.Now.Day == 1 || UserBudget == null || UserBudget == 0)
+                    {
+                        <a href="/Budget/SetBudget" class="@budgetClass" title="@(UserBudget.HasValue ? $"Budget: ₹{UserBudget}" : "No budget set")">
+                            Set Budget
+                        </a>
+                    }
+                    <a href="/Account/Logout" class="btn btn-sm btn-outline-info">Logout</a>
+                }
+            </div>
+        </header>
+    }
+    <div class="main-wrapper d-flex">
+        <!-- ✅ Sidebar Start -->
+        <div class="sidebar expanded" id="sidebar">
+            <div class="sidebar-header">
+                <h2 id="sidebar-title">Trackify</h2>
+                <button class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <ul class="sidebar-nav">
+                @if (!string.IsNullOrEmpty(userName))
+                {
+                    <li>
+                        <a href="/Dashboard/Dashboard">
+                            <i class="bi bi-house-door"></i>
+                            <span class="link-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Expense/Monthly">
+                            <i class="bi bi-cash-stack"></i>
+                            <span class="link-text">Expense</span>
+                        </a>
+                    </li>
+                    @*  <li>
+                    <a href="/Expense/SetBudget">
+                        <i class="bi bi-wallet2"></i>
+                        <span class="link-text">Set Budget</span>
+                    </a>
+                </li> *@
+                    <li>
+                        <a href="/Budget/Report">
+                            <i class="bi bi-wallet2"></i>
+                            <span class="link-text">Report</span>
+                        </a>
+                    </li>
+                    @*    <li>
+                    <a href="/Budget/Suggestions">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span class="link-text">Smart Budget</span>
+                    </a>
+                </li> *@
+                    <li>
+                        <a href="/Budget/BudgetAllocation">
+                            <i class="bi bi-pie-chart"></i>
+                            <span class="link-text">Recommended Budget</span>
+                        </a>
+                    </li>
+                    @* <li>
+                    <a href="/Diet/Index">
+                        <i class="bi bi-egg-fried"></i> <!-- Diet -->
+                        <span class="link-text">Diet</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Workout/Today">
+                        <i class="bi bi-heart-pulse"></i> <!-- Workout -->
+                        <span class="link-text">Workout</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Progress/Index">
+                        <i class="bi bi-graph-up-arrow"></i> <!-- Progress -->
+                        <span class="link-text">Progress</span>
+                    </a>
+                </li> *@
+                }
+                else
+                {
+                    <li>
+                        <a href="/Account/Login">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span class="link-text">Login</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- ✅ Sidebar End -->
+        <!-- ✅ Main Content -->
+        <div class="dashboard-container flex-grow-1 p-4">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Inside _Layout.cshtml head or before closing body -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @RenderSection("Scripts", required: false)
+    <partial name="_ValidationScriptsPartial" />
+    @if (jwtExpiry != null)
+    {
+        <script>
+            var expiryTime = new Date('@Context.Session.GetString("jwtExpiry")').getTime();
+
+            function startCountdown() {
+                debugger;
+                var x = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = expiryTime - now;
+
+                    if (distance <= 0) {
+                        clearInterval(x);
+                        document.getElementById("countdown").innerHTML = "Expired";
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Session Expired',
+                            text: 'Please login again.',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = '/Account/Login';
+                        });
+                        return;
+                    }
+
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("countdown").innerHTML = minutes + "m " + seconds + "s ";
+                }, 1000);
+            }
+
+            startCountdown();
+        </script>
+    }
+</body>
+</html>

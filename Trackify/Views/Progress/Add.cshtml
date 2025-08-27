@@ -1,0 +1,27 @@
+﻿@model Trackify.Domain.FitnessEntity.Progress
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Add Progress";
+}
+<h3>Add Progress</h3>
+<form method="post">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Date</label>
+            <input class="form-control" asp-for="Date" type="date" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Weight (kg)</label>
+            <input class="form-control" asp-for="Weight" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Waist (cm)</label>
+            <input class="form-control" asp-for="Waist" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Body Fat %</label>
+            <input class="form-control" asp-for="BodyFat" />
+        </div>
+    </div>
+    <button class="btn btn-primary mt-3">Save</button>
+</form>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Trackify.Domain.FitnessEntity.Meal>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Diet";
+}
+
+<style>
+    .btn-custom {
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 5px;
+        line-height: 1.2;
+    }
+
+        .btn-custom i {
+            font-size: 16px;
+        }
+
+        /* Hover effect */
+        .btn-custom:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+
+    .p-4 {
+        padding: 2rem !important;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h1 class="budget-title">
+        Diet @((DateTime)ViewBag.Date)
+    </h1>
+    <a class="btn btn-primary" href="/Diet/Add?date=@((DateTime)ViewBag.Date).ToString(" yyyy-MM-dd")">Add Meal</a>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr><th>Meal</th><th>Food</th><th>Protein</th><th>Carbs</th><th>Fats</th><th>Calories</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.MealType</td>
+                <td>@m.FoodItem</td>
+                <td>@m.Protein</td>
+                <td>@m.Carbs</td>
+                <td>@m.Fats</td>
+                <td>@m.Calories</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@m.DietId" />
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

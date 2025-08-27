@@ -1,0 +1,99 @@
+﻿@model Trackify.Application.DTOs.ExpenseDto
+@{
+    ViewData["Title"] = "Edit Expense";
+}
+
+<style>
+    .btn-custom {
+        background: linear-gradient(135deg, #005298, #28787A, #3B8A6D);
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 8px; /* thoda square-premium look */
+        line-height: 1.2;
+        border: none;
+        box-shadow: 0 3px 10px rgba(0, 82, 152, 0.35);
+        transition: all 0.3s ease;
+        background-size: 250% 250%;
+        animation: gradientShiftCustom 12s ease infinite;
+    }
+
+        .btn-custom i {
+            font-size: 16px;
+        }
+
+        /* Hover effect */
+        .btn-custom:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C);
+            box-shadow: 0 5px 14px rgba(40, 120, 122, 0.45);
+        }
+
+        /* Active */
+        .btn-custom:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
+        }
+
+    /* Gradient animation */
+    @@keyframes gradientShiftCustom {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="card p-4 shadow rounded-4">
+        <h1 class="budget-title">
+            ✏️ Edit Expense
+        </h1>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="ExpenseId" />
+            <input type="hidden" asp-for="UserId" />
+
+            <div class="mb-3">
+                <label asp-for="Amount" class="form-label">Amount</label>
+                <input asp-for="Amount" class="form-control" type="number" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Category</label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryList"
+                        style="pointer-events: none; background-color: #e9ecef;">
+                    <option value="">--Select Category--</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Date" class="form-label">Date</label>
+                <input asp-for="Date" class="form-control" type="date" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label">Notes</label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn btn-info btn-custom" type="submit">Update Expense</button>
+            </div>
+        </form>
+    </div>
+</div>

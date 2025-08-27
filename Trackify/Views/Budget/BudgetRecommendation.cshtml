@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Recommended Budget";
+}
+
+<h2>💰 Enter Your Monthly Income</h2>
+<form method="post">
+    <input type="number" name="monthlyIncome" class="form-control w-25" placeholder="e.g. 5000" required />
+    <button type="submit" class="btn btn-primary mt-2">Show Recommendations</button>
+</form>
+
+@* <table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Recommended Min (₹)</th>
+            <th>Recommended Max (₹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Category</td>
+                <td>@item.IdealMinAmount</td>
+                <td>@item.IdealMaxAmount</td>
+            </tr>
+        }
+    </tbody>
+</table> *@

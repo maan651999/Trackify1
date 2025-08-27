@@ -1,0 +1,104 @@
+﻿@model List<Trackify.Application.DTOs.BudgetCategoryDto>
+
+<style>
+    .btn-custom {
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 5px;
+        line-height: 1.2;
+    }
+
+        .btn-custom i {
+            font-size: 16px;
+        }
+
+        /* Hover effect */
+        .btn-custom:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+
+    .p-4 {
+        padding: 1rem !important;
+    }
+</style>
+
+<h1 class="budget-title">
+    📊 Budget Categories
+</h1>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        string category = item.CategoryName;
+                        if (!string.IsNullOrEmpty(category) && category.StartsWith("*"))
+                        {
+                            <span style="color: red; font-weight: 900;">*</span>
+                            @category.Substring(1).TrimStart()
+                            // baaki ka naam normal dikhe
+                        }
+                        else
+                        {
+                            @category
+                        }
+                    }
+                </td>
+                <td>₹@item.BudgetAmount</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="/Budget/Edit/@item.CategoryId">Edit</a>
+                    <a class="btn btn-sm btn-danger" href="/Budget/Delete/@item.CategoryId" onclick="return confirm('Delete this category?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (TempData["SuccessMessage"] != null)
+            {
+                            <text>
+                                Swal.fire({
+                                            icon: 'success',
+                                    title: 'Success',
+                                        text: '@TempData["SuccessMessage"]',
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    showConfirmButton: false
+                                });
+                            </text>
+            }
+            else if (TempData["ErrorMessage"] != null)
+            {
+                                <text>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Failed',
+                                        text: '@TempData["ErrorMessage"]',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false
+                                    });
+                                </text>
+            }
+    </script>
+}
+

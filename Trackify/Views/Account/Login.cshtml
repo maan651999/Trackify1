@@ -1,0 +1,193 @@
+﻿@model Trackify.Application.DTOs.LoginDto
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Trackify</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="login-wrapper">
+        <!-- Left illustration -->
+        <div class="login-illustration">
+            <img src="https://cdn-icons-png.flaticon.com/512/3596/3596097.png" alt="Login Illustration">
+            <h1>Welcome to Trackify</h1>
+            <p>Manage your budget smarter and faster 🚀</p>
+        </div>
+
+        <!-- Right login form -->
+        <div class="login-card">
+            <div class="login-form">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Sign In Securely</h2>
+                    <p class="text-muted">Your smart budgeting starts here</p>
+                </div>
+
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", required = "required" })
+                        <label for="Email">Email</label>
+                    </div>
+
+                    <div class="form-floating mb-2 position-relative">
+                        @Html.PasswordFor(m => m.PasswordHash, new { @class = "form-control pe-5 password-input", id = "password", placeholder = "Password", required = "required" })
+                        <label for="password">Password</label>
+
+                        <!-- Password toggle -->
+                        <span class="position-absolute end-0 top-50 translate-middle-y me-3 toggle-password" onclick="togglePassword()" style="cursor:pointer;">
+                            <i class="bi bi-eye" id="toggleIcon"></i>
+                        </span>
+                    </div>
+                    <!-- Client-side password strength message -->
+                    <div id="passwordHelp" class="form-text mt-1"></div>
+
+                    <!-- Server-side validation message -->
+                   @*  <div class="text-danger mt-1">
+                        @Html.ValidationMessageFor(m => m.PasswordHash)
+                    </div> *@
+
+                    <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Don't have an account?
+                            <a href="/Account/Register" class="fw-semibold text-primary">Register</a>
+                        </small>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+                     document.addEventListener("DOMContentLoaded", function () {
+            const pwdInputs = document.querySelectorAll(".password-input");
+
+            // ✅ Regex: at least 1 lowercase, 1 uppercase, 1 digit, 1 special char, min 8 chars
+            const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@@#$%^&*?]).{8,}$/;
+
+            pwdInputs.forEach(input => {
+                input.addEventListener("input", function () {
+                    const msg = document.getElementById(input.id + "Help");
+
+                    if (!msg) return;
+
+                    const pwd = input.value;
+                    console.log("Current Value:", pwd); // debug
+                    console.log("Regex Test:", strongRegex.test(pwd)); // debug
+
+                    if (pwd.length === 0) {
+                        msg.textContent = "";
+                    }
+                    else if (strongRegex.test(pwd)) {
+                        msg.textContent = "✅ Strong password";
+                        msg.style.color = "green";
+                    } else {
+                        msg.textContent = "❌ Must be strong password";
+                        msg.style.color = "red";
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.replace('bi-eye', 'bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.replace('bi-eye-slash', 'bi-eye');
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if (TempData["RegisterSuccess"] != null)
+            {
+                                <text>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Registration Successful',
+                                        text: '@TempData["RegisterSuccess"]',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false
+                                    });
+                                </text>
+            }
+            else if (TempData["RegisterError"] != null)
+            {
+                                <text>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Registration Failed',
+                                        text: '@TempData["RegisterError"]',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false
+                                    });
+                                </text>
+            }
+            else if (TempData["LoginSuccess"] != null)
+            {
+                                <text>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Login Successful',
+                                        text: '@TempData["LoginSuccess"]',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false
+                                        }).then(() => {
+                            // Remove history so refresh won't show alert
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        });
+                                </text>
+            }
+            else if (TempData["LoginError"] != null)
+            {
+                                <text>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Login Failed',
+                                        text: '@TempData["LoginError"]',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false
+                                    });
+                                </text>
+            }
+            else if (TempData["LogoutSuccess"] != null)
+            {
+                                <text>
+                                    Swal.fire({
+                                        icon: 'info',
+                                        title: 'Logged Out',
+                                        text: '@TempData["LogoutSuccess"]',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        showConfirmButton: false
+                                    });
+                                </text>
+            }
+        });
+    </script>
+</body>
+</html>

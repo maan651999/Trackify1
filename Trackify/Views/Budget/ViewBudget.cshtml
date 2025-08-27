@@ -1,0 +1,51 @@
+﻿@model Trackify.Application.DTOs.BudgetViewModel
+@{
+    ViewData["Title"] = "Monthly Budget";
+    var monthName = new System.Globalization.DateTimeFormatInfo().GetMonthName(Model.Month);
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg p-4 rounded-4 border-0">
+                <h2 class="text-center mb-4 text-primary">💰 Budget Summary - @monthName @Model.Year</h2>
+
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <div class="bg-light rounded-3 p-3 shadow-sm">
+                            <h5 class="text-muted">Total Budget</h5>
+                            <h3 class="text-success">₹@Model.BudgetAmount.ToString("N2")</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="bg-light rounded-3 p-3 shadow-sm">
+                            <h5 class="text-muted">Total Spent</h5>
+                            <h3 class="text-danger">₹@Model.TotalSpent.ToString("N2")</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="bg-light rounded-3 p-3 shadow-sm">
+                            <h5 class="text-muted">Remaining</h5>
+                            <h3 class="@(Model.Remaining < 0 ? "text-danger" : "text-primary")">
+                                ₹@Model.Remaining.ToString("N2")
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="/Budget/SetBudget" class="btn btn-outline-primary px-4 rounded-pill">
+                        ✏️ Update Budget
+                    </a>
+                    <a href="/Expense/Monthly" class="btn btn-outline-secondary px-4 rounded-pill ms-2">
+                        📊 View Expenses
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
