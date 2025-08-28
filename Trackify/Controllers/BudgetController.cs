@@ -15,10 +15,10 @@ namespace Trackify.Web.Controllers
         private readonly IBudgetService _budgetService;
         private readonly IConverter _converter;
         private readonly IMonthlyBudgetRepository _budgetRepository;
-        private readonly IExpenseService _expenseService;
+        private readonly IExpenseRepository _expenseService;
         private ISession Session => HttpContext.Session;
         protected int UserId => Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
-        public BudgetController(IBudgetService budgetService, IConverter converter, IMonthlyBudgetRepository budgetRepository, IExpenseService expenseService)
+        public BudgetController(IBudgetService budgetService, IConverter converter, IMonthlyBudgetRepository budgetRepository, IExpenseRepository expenseService)
         {
             _budgetService = budgetService;
             _converter = converter;

@@ -10,7 +10,7 @@ using Trackify.Domain.Entities;
 
 namespace Trackify.Infrastructure.Repositories
 {
-    public class ExpenseRepository : IExpenseService
+    public class ExpenseRepository : IExpenseRepository
     {
         private readonly AppDbContext _context;
         public ExpenseRepository(AppDbContext context)

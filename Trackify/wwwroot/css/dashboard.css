@@ -347,6 +347,92 @@ body {
     font-size: 22px;
     margin-right: 6px;
 }
+/* Table base */
+.budget-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 6px; /* row gap */
+    background: #FFFFFF;
+}
+
+    .budget-table thead {
+        background: linear-gradient(135deg, #B8B7C4, #C9CCDE);
+        color: #fff;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        border-radius: 8px 8px 0 0;
+    }
+
+        .budget-table thead th {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+    /* Table rows */
+    .budget-table tbody tr {
+        background: #FFFFFF;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+    }
+
+        .budget-table tbody tr:hover {
+            background: #F8F9FB;
+            transform: translateY(-2px);
+        }
+
+/* Row states */
+.row-over {
+    border-left: 5px solid #dc3545; /* danger red */
+}
+
+.row-within {
+    border-left: 5px solid #74BF44; /* premium green */
+}
+
+/* Status badges */
+.status-over {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.status-within {
+    color: #74BF44;
+    font-weight: 600;
+}
+
+.budget-table thead {
+    position: sticky;
+    top: 0; /* always stick at top */
+    z-index: 5; /* above tbody rows */
+    background: linear-gradient(135deg, #B8B7C4, #C9CCDE);
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* subtle shadow */
+}
+
+    .budget-table thead th {
+        padding: 14px 12px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+    }
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+    background: #ffffff; /* clean white card */
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #74BF44; /* fresh green accent stripe */
+}
+.h2, h2 {
+    font-size: 2rem;
+    text-align: center;
+}
 
 
 

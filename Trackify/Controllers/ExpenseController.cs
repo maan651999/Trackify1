@@ -10,12 +10,12 @@ namespace Trackify.Web.Controllers
     [SessionCheck]
     public class ExpenseController : Controller
     {
-        private readonly IExpenseService _expenseService;
+        private readonly IExpenseRepository _expenseService;
         private readonly IMonthlyBudgetRepository _budgetRepository;
         private readonly IBudgetService _budgetService;
         protected int UserId => Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
         private ISession Session => HttpContext.Session;
-        public ExpenseController(IMonthlyBudgetRepository budgetRepository, IExpenseService expenseService, IBudgetService budgetService)
+        public ExpenseController(IMonthlyBudgetRepository budgetRepository, IExpenseRepository expenseService, IBudgetService budgetService)
         {
             _budgetRepository = budgetRepository;
             _expenseService = expenseService;
@@ -28,12 +28,9 @@ namespace Trackify.Web.Controllers
             try
             {
                 var expenses = await _expenseService.GetExpensesByMonthAsync(UserId, DateTime.Now.Year);
-                var expenseCategoryIds = expenses.Select(e => e.CategoryId).Distinct().ToList();
 
                 var budget = _budgetService.GetBudgetCategoriesAsync(UserId).Result;
-                var sortedBudget = budget.Where(b => !expenseCategoryIds.Contains(b.CategoryId.ToString())).OrderBy(b => b.CategoryName).ToList();
 
-                ViewBag.CategoryList = new SelectList(sortedBudget, "CategoryId", "CategoryName");
                 return View(new ExpenseDto { Date = DateTime.Today });
             }
             catch (Exception)

@@ -18,7 +18,7 @@ namespace Trackify.Web.Filters
                 return;
             }
 
-            var userName = Authentication.ValidateToken(token);
+            var userName = JwtRefreshMiddleware.ValidateToken(token);
 
             if (string.IsNullOrEmpty(userName))
             {

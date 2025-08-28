@@ -2,7 +2,7 @@
 
 namespace Trackify.Application.Interfaces
 {
-    public interface IExpenseService
+    public interface IExpenseRepository
     {
         Task AddExpenseAsync(ExpenseDto expense);
         Task<IEnumerable<ExpenseDto>> GetExpensesByMonthAsync(int userId, int year);

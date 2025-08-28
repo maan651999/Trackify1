@@ -11,13 +11,13 @@ namespace Trackify.Web.Controllers
     public class DashboardController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IExpenseService _expenseService;
+        private readonly IExpenseRepository _expenseService;
         private readonly IBudgetService _budgetService;
         private readonly IMonthlyBudgetRepository _budgetRepository;
         private readonly INutritionRepository _nutrition;
         protected int UserId => Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
         private ISession Session => HttpContext.Session;
-        public DashboardController(INutritionRepository nutrition, AppDbContext context, IExpenseService expenseService, IBudgetService budgetService, IMonthlyBudgetRepository budgetRepository)
+        public DashboardController(INutritionRepository nutrition, AppDbContext context, IExpenseRepository expenseService, IBudgetService budgetService, IMonthlyBudgetRepository budgetRepository)
         {
             _context = context;
             _expenseService = expenseService;
