@@ -27,7 +27,8 @@ namespace Trackify.Infrastructure.Repositories
                     Amount = expense.Amount,
                     CategoryId = Convert.ToInt32(expense.CategoryId),
                     Date = expense.Date,
-                    Notes = expense.Notes
+                    Notes = expense.Notes,
+                    Quantity = expense.Quantity,
                 };
                 _context.Expenses.Add(entity);
                 await _context.SaveChangesAsync();

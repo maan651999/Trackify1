@@ -26,21 +26,7 @@
                     {
                         <tr>
                             <td>@item.Date.ToString("dd MMMM yyyy")</td>
-                            <td>
-                                @{
-                                    string category = item.CategoryName;
-                                    if (!string.IsNullOrEmpty(category) && category.StartsWith("*"))
-                                    {
-                                        <span style="color: red; font-weight: 900;">*</span>
-                                        @category.Substring(1).TrimStart()
-                                        // baaki ka naam normal dikhe
-                                    }
-                                    else
-                                    {
-                                        @category
-                                    }
-                                }
-                            </td>
+                            <td>@item.CategoryName</td>
                             <td>₹@item.Amount</td>
                             <td>@item.Notes</td>
                             <td>@item.Quantity</td>

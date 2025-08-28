@@ -40,7 +40,7 @@
             </div>
 
             <div id="session-timer" style="color:red; font-weight:bold; margin-right:20px;">
-                Session Expires in: <span id="countdown"></span>
+                Expires : <span id="countdown"></span>
             </div>
             <div class="d-flex align-items-center gap-3">
                 @if (!string.IsNullOrEmpty(userName))
@@ -50,17 +50,17 @@
                     @* <span>👋 Welcome, <strong>@userName</strong></span> *@
                     <span><strong>@userName</strong></span>
                     <a href="/Dashboard/UploadPhoto" class="btn btn-sm btn-outline-info">Change Photo</a>
-                    @if (UserBudget != null)
+                    @* @if (UserBudget != null)
                     {
                         <span>💰 Budget: <strong>₹ @UserBudget</strong></span>
-                    }
-                    @if (DateTime.Now.Day == 1 || UserBudget == null || UserBudget == 0)
+                    } *@
+                    @if (DateTime.Now.Day == 8 || UserBudget == null || UserBudget == 0)
                     {
                         <a href="/Budget/SetBudget" class="@budgetClass" title="@(UserBudget.HasValue ? $"Budget: ₹{UserBudget}" : "No budget set")">
                             Set Budget
                         </a>
                     }
-                    <a href="/Account/Logout" class="btn btn-sm btn-outline-info">Logout</a>
+                    <a href="/Account/Logout" class="btn btn-sm btn-outline-danger">Logout</a>
                 }
             </div>
         </header>
@@ -89,12 +89,6 @@
                             <span class="link-text">Expense</span>
                         </a>
                     </li>
-                    @*  <li>
-                    <a href="/Expense/SetBudget">
-                        <i class="bi bi-wallet2"></i>
-                        <span class="link-text">Set Budget</span>
-                    </a>
-                </li> *@
                     <li>
                         <a href="/Budget/Report">
                             <i class="bi bi-wallet2"></i>
@@ -110,7 +104,13 @@
                     <li>
                         <a href="/Budget/BudgetAllocation">
                             <i class="bi bi-pie-chart"></i>
-                            <span class="link-text">Recommended Budget</span>
+                            <span class="link-text">Recommendation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Budget/Index">
+                            <i class="bi bi-tags-fill"></i>
+                            <span class="link-text">Category</span>
                         </a>
                     </li>
                     @* <li>

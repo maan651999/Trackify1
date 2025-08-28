@@ -46,17 +46,17 @@
             <div class="table-responsive" style="max-height: 556px; overflow-y: auto;">
                 <table class="table table-hover mb-0 budget-table">
                     <thead class="sticky-top">
-                    <tr>
-                        <th>Category</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var expense in Model.OrderByDescending(e => e.Date).Take(10))
-                    {
                         <tr>
-                                <td>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var expense in Model.OrderByDescending(e => e.Date).Take(10))
+                        {
+                            <tr>
+                                @* <td>
                                     @{
                                         string category = expense.CategoryName;
                                         if (!string.IsNullOrEmpty(category) && category.StartsWith("*"))
@@ -70,13 +70,14 @@
                                             @category
                                         }
                                     }
-                                </td>
-                            <td>₹@expense.Amount</td>
-                            <td>@expense.Date.ToString("dd MMM yyyy")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                </td> *@
+                                <td>@expense.CategoryName</td>
+                                <td>₹@expense.Amount</td>
+                                <td>@expense.Date.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -137,16 +138,16 @@
     <script>
         @if (TempData["LoginSuccess"] != null)
         {
-                        <text>
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Welcome!',
-                            text: '@TempData["LoginSuccess"]',
-                            timer: 3000,
-                            timerProgressBar: true,
-                            showConfirmButton: false
-                        });
-                        </text>
+                            <text>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Welcome!',
+                                text: '@TempData["LoginSuccess"]',
+                                timer: 3000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                            });
+                            </text>
         }
     </script>
 }

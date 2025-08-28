@@ -243,21 +243,7 @@
             @foreach (var item in Model)
             {
                 <tr class="@(item.IsOverBudget ? "row-over" : "row-within")">
-                    <td>
-                        @{
-                            string category = item.Category;
-                            if (!string.IsNullOrEmpty(category) && category.StartsWith("*"))
-                            {
-                                <span style="color: red; font-weight: 900;">*</span>
-                                @category.Substring(1).TrimStart()
-                                // baaki ka naam normal dikhe
-                            }
-                            else
-                            {
-                                @category
-                            }
-                        }
-                    </td>
+                    <td>@item.Category</td>
                     <td>₹@item.BudgetAmount</td>
                     <td>₹@item.SpentAmount</td>
                     <td>@item.UtilizationPercent%</td>

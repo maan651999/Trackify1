@@ -28,14 +28,12 @@ namespace Trackify.Web.Controllers
             try
             {
                 var expenses = await _expenseService.GetExpensesByMonthAsync(UserId, DateTime.Now.Year);
-
                 var budget = _budgetService.GetBudgetCategoriesAsync(UserId).Result;
-
+                ViewBag.CategoryList = new SelectList(budget, "CategoryId", "CategoryName");
                 return View(new ExpenseDto { Date = DateTime.Today });
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -45,7 +43,6 @@ namespace Trackify.Web.Controllers
             try
             {
                 model.UserId = UserId;
-                model.Quantity = 1;
 
                 if (ModelState.IsValid)
                 {

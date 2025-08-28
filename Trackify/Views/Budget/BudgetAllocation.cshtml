@@ -1,54 +1,5 @@
 ﻿@model List<Trackify.Application.DTOs.RecommendedBudgetDto>
 
-<h1 class="budget-title">
-    📊 Recommended Budget Allocation
-</h1>
-
-<table class="table table-bordered mt-0 align-middle text-center">
-    <thead class="table-dark">
-        <tr>
-            <th>Category</th>
-            <th>Min (₹)</th>
-            <th>Avg (₹)</th>
-            <th>Max (₹)</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.CategoryName</td>
-                <td>@item.IdealMinAmount</td>
-                <td>@item.IdealAvgAmount</td>
-                <td>@item.IdealMaxAmount</td>
-                <td>
-                    @if (item.IsAdded)
-                    {
-                        <span class="badge-premium">✔ Added</span>
-                    }
-                    else
-                    {
-                        <a class="btn-premium"
-                           asp-controller="Budget"
-                           asp-action="Create"
-                           asp-route-id="@item.RecommendationId"
-                           asp-route-avgAmt="@item.IdealAvgAmount">
-                            ✨ + Add
-                        </a>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div style="display: flex; justify-content: flex-end; gap: 5px;">
-    <a class="btn-update" href="/Budget/Index">
-        <i class="bi bi-pencil-square"></i> Update Category
-    </a>
-</div>
-
 <style>
     .btn-custom {
         padding: 7px 14px;
@@ -105,20 +56,17 @@
 
     /* Gradient Animation */
     @@keyframes gradientShift {
-        0%
+        0% {
+            background-position: 0% 50%;
+        }
 
-    {
-        background-position: 0% 50%;
-    }
+        50% {
+            background-position: 100% 50%;
+        }
 
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
 
@@ -178,20 +126,17 @@
 
     /* Smooth gradient movement */
     @@keyframes gradientShiftUpdate {
-        0%
+        0% {
+            background-position: 0% 50%;
+        }
 
-    {
-        background-position: 0% 50%;
-    }
+        50% {
+            background-position: 100% 50%;
+        }
 
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
 
@@ -209,6 +154,49 @@
     }
 
 </style>
+
+<h1 class="budget-title">
+    📊 Recommended Budget Allocation
+</h1>
+
+<table class="table table-bordered mt-0 align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Category</th>
+            <th>Min (₹)</th>
+            <th>Avg (₹)</th>
+            <th>Max (₹)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryName</td>
+                <td>@item.IdealMinAmount</td>
+                <td>@item.IdealAvgAmount</td>
+                <td>@item.IdealMaxAmount</td>
+                <td>
+                    @if (item.IsAdded)
+                    {
+                        <span class="badge-premium">✔ Added</span>
+                    }
+                    else
+                    {
+                        <a class="btn-premium"
+                           asp-controller="Budget"
+                           asp-action="Create"
+                           asp-route-id="@item.RecommendationId"
+                           asp-route-avgAmt="@item.IdealAvgAmount">
+                            ✨ + Add
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 
