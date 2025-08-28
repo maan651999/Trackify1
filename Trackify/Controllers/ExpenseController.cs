@@ -28,12 +28,9 @@ namespace Trackify.Web.Controllers
             try
             {
                 var expenses = await _expenseService.GetExpensesByMonthAsync(UserId, DateTime.Now.Year);
-                var expenseCategoryIds = expenses.Select(e => e.CategoryId).Distinct().ToList();
 
                 var budget = _budgetService.GetBudgetCategoriesAsync(UserId).Result;
-                var sortedBudget = budget.Where(b => !expenseCategoryIds.Contains(b.CategoryId.ToString())).OrderBy(b => b.CategoryName).ToList();
 
-                ViewBag.CategoryList = new SelectList(sortedBudget, "CategoryId", "CategoryName");
                 return View(new ExpenseDto { Date = DateTime.Today });
             }
             catch (Exception)
