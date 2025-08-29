@@ -13,6 +13,7 @@ using Trackify.Application.Interfaces;
 using Trackify.Domain.Entities;
 using Trackify.Infrastructure;
 using Trackify.Web.Filters;
+using static Trackify.Application.DTOs.GoogleCaptchaResponse;
 
 namespace Trackify.Web.Controllers
 {
@@ -24,6 +25,11 @@ namespace Trackify.Web.Controllers
         // Dummy storage (DB recommend)
         private readonly Dictionary<string, string> _refreshTokens = new();
         private ISession Session => HttpContext.Session;
+        private static IConfiguration _config;
+        public static void Initialize(IConfiguration config)
+        {
+            _config = config;
+        }
         public AccountController(AppDbContext context, IMonthlyBudgetRepository monthlyBudgetRepository, ITokenService tokenService)
         {
             _context = context;
@@ -68,6 +74,15 @@ namespace Trackify.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
+            var captchaResponse = Request.Form["g-recaptcha-response"];
+            var captchaService = new CaptchaService(_config);
+
+            if (string.IsNullOrEmpty(captchaResponse) || !await captchaService.VerifyCaptchaAsync(captchaResponse))
+            {
+                TempData["LoginError"] = "Captcha verification failed. Please try again.";
+                return View(loginDto);
+            }
+
             if (!ModelState.IsValid)
                 return View(loginDto);
 

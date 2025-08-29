@@ -59,7 +59,9 @@
                    @*  <div class="text-danger mt-1">
                         @Html.ValidationMessageFor(m => m.PasswordHash)
                     </div> *@
-
+                    <div class="mb-3">
+                        <div class="g-recaptcha" data-sitekey="6LdF4rYrAAAAAJvidjcf_gdxggM4p97ieQPLDwcf"></div>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
 
                     <div class="text-center mt-3">
@@ -73,7 +75,8 @@
         </div>
     </div>
 
-    <script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+   @*  <script>
                      document.addEventListener("DOMContentLoaded", function () {
             const pwdInputs = document.querySelectorAll(".password-input");
 
@@ -103,7 +106,7 @@
                 });
             });
         });
-    </script>
+    </script> *@
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
