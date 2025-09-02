@@ -1,6 +1,60 @@
 ﻿@model List<Trackify.Application.DTOs.BudgetCategoryDto>
 
 <style>
+    .btn-premium {
+        background: linear-gradient(135deg, #005298, #28787A, #3B8A6D, #53A05C);
+        color: #fff !important;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 50px; /* pill shape */
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 82, 152, 0.35);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease infinite;
+    }
+
+        .btn-premium:hover {
+            background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C, #005298);
+            box-shadow: 0 6px 16px rgba(40, 120, 122, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-premium:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
+        }
+
+    .btn-danger-premium {
+        background: linear-gradient(135deg, #d62828, #e63946, #f2545b, #ff6b6b);
+        color: #fff !important;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 50px; /* pill shape */
+        border: none;
+        box-shadow: 0 4px 12px rgba(214, 40, 40, 0.35);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease infinite;
+    }
+
+        .btn-danger-premium:hover {
+            background: linear-gradient(135deg, #e63946, #f2545b, #ff6b6b, #c1121f);
+            box-shadow: 0 6px 16px rgba(230, 57, 70, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger-premium:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(230, 57, 70, 0.4);
+        }
+
     .btn-custom {
         padding: 8px 16px;
         font-size: 14px;
@@ -66,8 +120,18 @@
                 </td>
                 <td>₹@item.BudgetAmount</td>
                 <td>
-                    <a class="btn btn-sm btn-warning" href="/Budget/Edit/@item.CategoryId">Edit</a>
-                    <a class="btn btn-sm btn-danger" href="/Budget/Delete/@item.CategoryId" onclick="return confirm('Delete this category?');">Delete</a>
+                    <a class="btn-premium btn-sm"
+                       asp-controller="Budget"
+                       asp-action="Edit"
+                       asp-route-id="@item.CategoryId">
+                        Edit
+                    </a>
+                    <a class="btn-danger-premium btn-sm"
+                       asp-controller="Budget"
+                       asp-action="Delete"
+                       asp-route-id="@item.CategoryId" onclick="return confirm('Delete this category?');">
+                        Delete
+                    </a>
                 </td>
             </tr>
         }

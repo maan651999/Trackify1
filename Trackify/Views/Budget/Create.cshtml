@@ -17,8 +17,7 @@
         <input asp-for="BudgetAmount" class="form-control" value="@ViewBag.DefaultBudgetAmount" />
         <span asp-validation-for="BudgetAmount" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-success">Save</button>
-    <a class="btn btn-secondary btn-custom" asp-action="BudgetAllocation" style="background:#6c757d;">🔙 Back</a>
+    <button type="submit" class="btn-premium btn-sm">Save</button>
 </form>
 
 @section Scripts {
@@ -47,6 +46,32 @@
 }
 
 <style>
+    .btn-premium {
+        background: linear-gradient(135deg, #005298, #28787A, #3B8A6D, #53A05C);
+        color: #fff !important;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 50px; /* pill shape */
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 82, 152, 0.35);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease infinite;
+    }
+
+        .btn-premium:hover {
+            background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C, #005298);
+            box-shadow: 0 6px 16px rgba(40, 120, 122, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-premium:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
+        }
     .p-4 {
         padding: 2rem !important;
     }

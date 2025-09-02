@@ -41,7 +41,14 @@
         gap: 6px;
         background-size: 300% 300%;
         animation: gradientShift 8s ease infinite;
+        text-decoration: none !important; /* underline remove */
     }
+
+        .btn-premium .plus-icon {
+            font-size: 1.4rem; /* plus sign ko bada kiya */
+            font-weight: bold;
+            line-height: 1;
+        }
 
         .btn-premium:hover {
             background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C, #005298);
@@ -53,6 +60,7 @@
             transform: translateY(1px);
             box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
         }
+
 
     /* Gradient Animation */
     @@keyframes gradientShift {
@@ -74,17 +82,20 @@
         background: linear-gradient(135deg, #28a745, #1e7e34); /* green gradient */
         color: #fff;
         font-weight: 600;
-        font-size: 0.9rem;
-        padding: 6px 14px;
+        font-size: 1rem; /* thoda bada */
+        padding: 6px 16px;
         border-radius: 50px; /* pill shape */
         box-shadow: 0 3px 8px rgba(40, 167, 69, 0.4);
-        display: inline-block;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        text-decoration: none; /* underline remove */
+        display: inline-flex;
+        align-items: center;
+        gap: 6px; /* text aur symbol ke beech space */
     }
 
         .badge-premium::before {
-            content: "✔ ";
+            font-size: 1.2rem; /* symbol aur bada */
             font-weight: bold;
         }
 
@@ -95,11 +106,13 @@
             transition: all 0.3s ease;
         }
 
+
     .btn-update {
         background: linear-gradient(135deg, #28787A, #3B8A6D, #53A05C);
         color: #fff !important;
         font-weight: 600;
-        padding: 6px 16px;
+        font-size: 1rem; /* thoda bada text */
+        padding: 8px 20px; /* button ko thoda spacious */
         border-radius: 50px; /* premium pill look */
         border: none;
         box-shadow: 0 4px 12px rgba(59, 138, 109, 0.35);
@@ -107,11 +120,17 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        text-decoration: none;
+        text-decoration: none !important; /* underline hatao */
         margin-right: 37px;
         background-size: 300% 300%;
         animation: gradientShiftUpdate 10s ease infinite;
     }
+
+        .btn-update::before {
+            content: "🔄"; /* update ka symbol */
+            font-size: 1.3rem; /* symbol ko bada kiya */
+            font-weight: bold;
+        }
 
         .btn-update:hover {
             background: linear-gradient(135deg, #3B8A6D, #53A05C, #28787A);
@@ -123,6 +142,7 @@
             transform: translateY(1px);
             box-shadow: 0 2px 8px rgba(40, 120, 122, 0.4);
         }
+
 
     /* Smooth gradient movement */
     @@keyframes gradientShiftUpdate {
@@ -180,7 +200,11 @@
                 <td>
                     @if (item.IsAdded)
                     {
-                        <span class="badge-premium">✔ Added</span>
+                        <a class="badge-premium btn-sm"
+                           asp-controller="Budget"
+                           asp-action="Index">
+                            🔄
+                        </a>
                     }
                     else
                     {
@@ -189,7 +213,7 @@
                            asp-action="Create"
                            asp-route-id="@item.RecommendationId"
                            asp-route-avgAmt="@item.IdealAvgAmount">
-                            ✨ + Add
+                            <span class="plus-icon">+</span>
                         </a>
                     }
                 </td>

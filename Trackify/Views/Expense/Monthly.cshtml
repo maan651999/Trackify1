@@ -17,7 +17,7 @@
                         <th>Category</th>
                         <th>Amount</th>
                         <th>Notes</th>
-                        <th>Quantity</th>
+                        @* <th>Quantity</th> *@
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -29,13 +29,13 @@
                             <td>@item.CategoryName</td>
                             <td>₹@item.Amount</td>
                             <td>@item.Notes</td>
-                            <td>@item.Quantity</td>
+                            @* <td>@item.Quantity</td> *@
                             <td>
-                                <form asp-action="IncreaseQuantity" method="post" class="d-inline">
+                               @*  <form asp-action="IncreaseQuantity" method="post" class="d-inline">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="id" value="@item.ExpenseId" />
                                     <button type="submit" class="btn btn-sm custom-plus" title="Increase Quantity">➕</button>
-                                </form>
+                                </form> *@
                                 <a class="btn btn-sm btn-outline-warning" asp-action="Edit" asp-route-id="@item.ExpenseId">✏️</a>
                                 <form asp-action="Delete" method="post" class="d-inline">
                                     @Html.AntiForgeryToken()
