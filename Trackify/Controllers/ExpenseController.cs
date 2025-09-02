@@ -29,7 +29,7 @@ namespace Trackify.Web.Controllers
             {
                 var expenses = await _expenseService.GetExpensesByMonthAsync(UserId, DateTime.Now.Year);
                 var budget = _budgetService.GetBudgetCategoriesAsync(UserId).Result;
-                ViewBag.CategoryList = new SelectList(budget, "CategoryId", "CategoryName");
+                ViewBag.CategoryList = new SelectList(budget.OrderBy(x => x.CategoryName), "CategoryId", "CategoryName");
                 return View(new ExpenseDto { Date = DateTime.Today });
             }
             catch (Exception)
@@ -69,6 +69,7 @@ namespace Trackify.Web.Controllers
                 if (year == 0) year = DateTime.Now.Year;
 
                 var data = await _expenseService.GetExpensesByMonthAsync(UserId, year);
+                data = data.OrderBy(x => x.CategoryName);
                 var budget = await _budgetRepository.GetByUserAndMonthAsync(UserId, year);
                 ViewBag.Month = month;
                 ViewBag.Year = year;

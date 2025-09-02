@@ -48,7 +48,7 @@ namespace Trackify.Infrastructure.Repositories
                             Math.Round((double)(totalSpent / cat.BudgetAmount) * 100, 2),
                         IsOverBudget = totalSpent > cat.BudgetAmount
                     };
-                }).ToList();
+                }).OrderBy(x => x.Category).ToList();
 
                 return report;
             }
